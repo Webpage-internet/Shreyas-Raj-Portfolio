@@ -25,7 +25,7 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            -webkit-tap-highlight-color: transparent;
+            -webkit-tap-highlight-color: transparent; 
         }
 
         body {
@@ -248,7 +248,7 @@
             color: #000;
         }
 
-        /* --- MODAL SYSTEM (FULL SCREEN) --- */
+        /* --- MODAL SYSTEM (FULL SCREEN HIGH QUALITY) --- */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -262,7 +262,6 @@
             align-items: center;
         }
 
-        /* Close Button */
         .close-btn {
             position: absolute;
             top: 20px;
@@ -280,7 +279,6 @@
             text-shadow: 0 0 10px rgba(0,0,0,0.8);
         }
 
-        /* Gallery Container */
         .gallery-container {
             width: 100vw;
             height: 100vh;
@@ -290,12 +288,13 @@
             position: relative;
         }
 
+        /* Image - Scaled up for Maximum High Quality */
         .gallery-img {
             max-width: 100vw;
             max-height: 100vh;
-            width: auto;
-            height: auto;
-            object-fit: contain;
+            width: 100%; 
+            height: 100%; 
+            object-fit: contain; 
             display: block;
             transition: opacity 0.2s ease-in-out;
         }
@@ -419,7 +418,7 @@
                 Let Me Bring Your Ideas to Reality! <br><br>
                 I’m Shreyas Raj, a passionate 2D and 3D artist. I specialize in Graphic Designing and 3D Modeling to bring creative ideas to life. My focus is on delivering high-quality visual content.
                 <br><br>
-                <strong>Expertise:</strong> Graphic Designing, 3D Modeling, and Event and Stall Designing.
+                <strong>Expertise:</strong> Graphic Designing, 3D Modeling, Event and Stall Designing.
             </p>
         </div>
     </section>
@@ -427,7 +426,7 @@
     <!-- IMAGE GALLERIES SECTION -->
     <section>
         <h2>Image Galleries</h2>
-        <p style="text-align:center; color:var(--text-muted); margin-bottom:20px;">Tap to open gallery (Swipe left/right)</p>
+        <p style="text-align:center; color:var(--text-muted); margin-bottom:20px;">Tap to open full-screen high-quality gallery (Swipe left/right)</p>
         
         <div class="grid-container" id="galleryGrid">
             <!-- Populated by JavaScript -->
@@ -506,239 +505,108 @@
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        // --- DATA: IMAGE URLS ---
+        // --- DATA: IMAGE URLS (Grouped exactly as requested) ---
         const galleryData = {
+            'concept_car': {
+                title: "Futuristic Concept Car",
+                images: ["https://i.ibb.co/tM2SkFy6/1-sci-fi-car-2.jpg", "https://i.ibb.co/Hp3JrnmC/2-2.jpg", "https://i.ibb.co/5Xw6gLF1/3-2.jpg", "https://i.ibb.co/PZNwB5YS/4-2.jpg", "https://i.ibb.co/27SPfgdS/5-2.jpg", "https://i.ibb.co/Kp9zbV4N/6-2.jpg", "https://i.ibb.co/NgWp8zQR/7-2.jpg", "https://i.ibb.co/dNfdB8t/8-2.jpg"]
+            },
+            'chopper': {
+                title: "Concept Chopper (Bee-Inspired)",
+                images: ["https://i.ibb.co/svT7rZVq/1.jpg", "https://i.ibb.co/prsBz5WL/2.jpg", "https://i.ibb.co/rRZCqb0L/3.jpg", "https://i.ibb.co/TDpFstYk/4.jpg", "https://i.ibb.co/r2y78sdR/5.jpg", "https://i.ibb.co/prnRyG5C/6.jpg", "https://i.ibb.co/5gJmHd7L/7.jpg", "https://i.ibb.co/nNrKftP8/8.jpg"]
+            },
+            'wooden_house': {
+                title: "Vintage Wooden House",
+                images: ["https://i.ibb.co/XrPxQJ55/1-house.jpg", "https://i.ibb.co/d4RvMsrp/2.jpg", "https://i.ibb.co/xKvMFsVX/3.jpg", "https://i.ibb.co/wFKcJTPj/4.jpg", "https://i.ibb.co/BVhXVyj7/5.jpg", "https://i.ibb.co/gZcxcLDh/6.jpg", "https://i.ibb.co/gLCdk7MK/7.jpg"]
+            },
+            'fighter_jet': {
+                title: "Concept Fighter Jet",
+                images: ["https://i.ibb.co/ZRZ67cR2/1-jet.jpg", "https://i.ibb.co/WY2F1Ts/2.jpg", "https://i.ibb.co/WvfdzrRk/3.jpg", "https://i.ibb.co/8LnsgBwb/4.jpg", "https://i.ibb.co/GQ2qmJSG/5.jpg", "https://i.ibb.co/My4FYjXZ/6.jpg", "https://i.ibb.co/cXMzRqBZ/7.jpg", "https://i.ibb.co/gLC648rs/8.jpg"]
+            },
+            'scifi_robot': {
+                title: "Futuristic Combat Sci-fi ROBOT",
+                images: ["https://i.ibb.co/NnbVCwpN/1.jpg", "https://i.ibb.co/v64V1Zxq/2.jpg", "https://i.ibb.co/4nYbHjr9/3.jpg", "https://i.ibb.co/Qj62hnpN/4.jpg", "https://i.ibb.co/4Rw3Zb8K/5.jpg", "https://i.ibb.co/jv43ccx9/6.jpg"]
+            },
+            'accuweb': {
+                title: "Accuweb Enterprises Stall",
+                images: ["https://i.ibb.co/4RxcGbVd/1-1-Photo.jpg", "https://i.ibb.co/h1cjBD6r/1-2-Photo.jpg", "https://i.ibb.co/GQ42vn2m/1-3-Photo.jpg", "https://i.ibb.co/HT0D1JDQ/1-4-Photo.jpg", "https://i.ibb.co/svbnFrr5/1-5-Photo.jpg", "https://i.ibb.co/Kcvdy7gy/1-6-Photo.jpg", "https://i.ibb.co/5xXq4v9V/1-7-Photo.jpg", "https://i.ibb.co/2pY8mGT/1-8-Photo.jpg", "https://i.ibb.co/dw4jFjTY/1-9-Photo.jpg"]
+            },
             'adani_stall': {
                 title: "Adani Marathon Flipkart Minutes Stall",
-                images: [
-                    "https://i.ibb.co/ymdY7shh/1-Exterior-Detail.jpg",
-                    "https://i.ibb.co/Y4zLLNQg/1-Exterior-Narrow.jpg",
-                    "https://i.ibb.co/JRwdYTMm/1-Exterior-Wide.jpg",
-                    "https://i.ibb.co/tTS1TZJz/2-9-Photo.jpg",
-                    "https://i.ibb.co/s9K3LfJs/2-Axonometric-Projection-at-45.jpg",
-                    "https://i.ibb.co/3qhHwqs/2-Photo-Match-Birds-Eye.jpg",
-                    "https://i.ibb.co/0RcT26Ks/3.jpg",
-                    "https://i.ibb.co/Pv7f4TZZ/4.jpg"
-                ]
+                images: ["https://i.ibb.co/ymdY7shh/1-Exterior-Detail.jpg", "https://i.ibb.co/Y4zLLNQg/1-Exterior-Narrow.jpg", "https://i.ibb.co/JRwdYTMm/1-Exterior-Wide.jpg", "https://i.ibb.co/tTS1TZJz/2-9-Photo.jpg", "https://i.ibb.co/s9K3LfJs/2-Axonometric-Projection-at-45.jpg", "https://i.ibb.co/3qhHwqs/2-Photo-Match-Birds-Eye.jpg", "https://i.ibb.co/0RcT26Ks/3.jpg", "https://i.ibb.co/Pv7f4TZZ/4.jpg"]
             },
             'bm_sulthania': {
                 title: "BM Sulthania & Silver Upahar Stall",
-                images: [
-                    "https://i.ibb.co/ZRZwBjrt/1-1-Photo.jpg",
-                    "https://i.ibb.co/C3fkQt2z/1-2-Photo.jpg",
-                    "https://i.ibb.co/KjMbjckm/1-4-Photo.jpg",
-                    "https://i.ibb.co/HL1h3D7Y/1-5-Photo.jpg",
-                    "https://i.ibb.co/MDsdQ3pv/1-6-Photo.jpg",
-                    "https://i.ibb.co/C3yrF7bK/1-7-Photo.jpg",
-                    "https://i.ibb.co/vCpPDHPT/1-8-Photo.jpg",
-                    "https://i.ibb.co/hJs7VgxC/1-9-Photo.jpg",
-                    "https://i.ibb.co/0pJNcWdL/1-10-Photo.jpg",
-                    "https://i.ibb.co/SXzprB8j/11.jpg"
-                ]
+                images: ["https://i.ibb.co/ZRZwBjrt/1-1-Photo.jpg", "https://i.ibb.co/C3fkQt2z/1-2-Photo.jpg", "https://i.ibb.co/KjMbjckm/1-4-Photo.jpg", "https://i.ibb.co/HL1h3D7Y/1-5-Photo.jpg", "https://i.ibb.co/MDsdQ3pv/1-6-Photo.jpg", "https://i.ibb.co/C3yrF7bK/1-7-Photo.jpg", "https://i.ibb.co/vCpPDHPT/1-8-Photo.jpg", "https://i.ibb.co/hJs7VgxC/1-9-Photo.jpg", "https://i.ibb.co/0pJNcWdL/1-10-Photo.jpg", "https://i.ibb.co/SXzprB8j/11.jpg"]
             },
             'chivas_display': {
                 title: "Generic Display Stand (Chivas Regal)",
-                images: [
-                    "https://i.ibb.co/k2wjmwDY/1-55-Photo.jpg",
-                    "https://i.ibb.co/fdYKyL5R/1-56-Photo.jpg",
-                    "https://i.ibb.co/pBTpm3nj/1-57-Photo.jpg",
-                    "https://i.ibb.co/PZZ97qGv/1-17-Photo.jpg",
-                    "https://i.ibb.co/c9kd47m/1-18-Photo.jpg",
-                    "https://i.ibb.co/5hB76WM9/1-19-Photo.jpg",
-                    "https://i.ibb.co/7tkPS0FC/1-20-Photo.jpg"
-                ]
+                images: ["https://i.ibb.co/k2wjmwDY/1-55-Photo.jpg", "https://i.ibb.co/fdYKyL5R/1-56-Photo.jpg", "https://i.ibb.co/pBTpm3nj/1-57-Photo.jpg", "https://i.ibb.co/PZZ97qGv/1-17-Photo.jpg", "https://i.ibb.co/c9kd47m/1-18-Photo.jpg", "https://i.ibb.co/5hB76WM9/1-19-Photo.jpg", "https://i.ibb.co/7tkPS0FC/1-20-Photo.jpg"]
             },
-            'monkey_bar': {
-                title: "Bar Counter (Monkey 47)",
+            'monkey_47': {
+                title: "Monkey 47 Displays",
                 images: [
-                    "https://i.ibb.co/R4HgZST7/30-22-Photo.jpg",
-                    "https://i.ibb.co/C5tW4tTj/30-26-Photo.jpg",
-                    "https://i.ibb.co/BVMs9Nkt/30-27-Photo.jpg",
-                    "https://i.ibb.co/m5PTSfBM/30-28-Photo.jpg",
-                    "https://i.ibb.co/fzKwJQkx/30-Existing-Image.jpg"
-                ]
-            },
-            'monkey_bottle': {
-                title: "Generic Bottle Display Stand (Monkey 47)",
-                images: [
-                    "https://i.ibb.co/SDHhD7nt/20-13-Photo.jpg",
-                    "https://i.ibb.co/VcPrDprh/20-14-Photo.jpg",
-                    "https://i.ibb.co/Q3n7Qcw4/20-15-Photo.jpg",
-                    "https://i.ibb.co/60Bx0S7k/20-16-Photo.jpg",
-                    "https://i.ibb.co/pvj9184m/20-17-Photo.jpg",
-                    "https://i.ibb.co/YFZjJBKH/20-18-Photo.jpg",
-                    "https://i.ibb.co/GvJJF1qh/20-19-Photo.jpg",
-                    "https://i.ibb.co/67ttQRxb/1-9-Photo.jpg",
-                    "https://i.ibb.co/p6Z0jfky/1-10-Photo.jpg",
-                    "https://i.ibb.co/FL0jLTPV/2-11-Photo.jpg",
-                    "https://i.ibb.co/Kj52PZdn/2-12-Photo.jpg",
-                    "https://i.ibb.co/LznSDKjQ/2-13-Photo.jpg",
-                    "https://i.ibb.co/JWvPGVrL/2-14-Photo.jpg",
-                    "https://i.ibb.co/Swqm6QL1/2-15-Photo.jpg"
-                ]
-            },
-            'monkey_stand': {
-                title: "Stand Alone Unit (Monkey 47)",
-                images: [
-                    "https://i.ibb.co/gbLGQgNV/1-8-Photo.jpg",
-                    "https://i.ibb.co/TqRP4bPQ/1-9-Photo.jpg",
-                    "https://i.ibb.co/7drtSTKz/1-10-Photo.jpg",
-                    "https://i.ibb.co/dw97HhN3/11.jpg",
-                    "https://i.ibb.co/pBWT4qhy/12-8-Photo.jpg",
-                    "https://i.ibb.co/b5qTsFrf/12-9-Photo.jpg",
-                    "https://i.ibb.co/nMV83kd2/12-10-Photo.jpg",
-                    "https://i.ibb.co/nMTFK6gc/13.jpg"
+                    "https://i.ibb.co/R4HgZST7/30-22-Photo.jpg", "https://i.ibb.co/C5tW4tTj/30-26-Photo.jpg", "https://i.ibb.co/BVMs9Nkt/30-27-Photo.jpg", "https://i.ibb.co/m5PTSfBM/30-28-Photo.jpg", "https://i.ibb.co/fzKwJQkx/30-Existing-Image.jpg",
+                    "https://i.ibb.co/SDHhD7nt/20-13-Photo.jpg", "https://i.ibb.co/VcPrDprh/20-14-Photo.jpg", "https://i.ibb.co/Q3n7Qcw4/20-15-Photo.jpg", "https://i.ibb.co/60Bx0S7k/20-16-Photo.jpg", "https://i.ibb.co/pvj9184m/20-17-Photo.jpg", "https://i.ibb.co/YFZjJBKH/20-18-Photo.jpg", "https://i.ibb.co/GvJJF1qh/20-19-Photo.jpg",
+                    "https://i.ibb.co/67ttQRxb/1-9-Photo.jpg", "https://i.ibb.co/p6Z0jfky/1-10-Photo.jpg", "https://i.ibb.co/FL0jLTPV/2-11-Photo.jpg", "https://i.ibb.co/Kj52PZdn/2-12-Photo.jpg", "https://i.ibb.co/LznSDKjQ/2-13-Photo.jpg", "https://i.ibb.co/JWvPGVrL/2-14-Photo.jpg", "https://i.ibb.co/Swqm6QL1/2-15-Photo.jpg",
+                    "https://i.ibb.co/gbLGQgNV/1-8-Photo.jpg", "https://i.ibb.co/TqRP4bPQ/1-9-Photo.jpg", "https://i.ibb.co/7drtSTKz/1-10-Photo.jpg", "https://i.ibb.co/dw97HhN3/11.jpg", "https://i.ibb.co/pBWT4qhy/12-8-Photo.jpg", "https://i.ibb.co/b5qTsFrf/12-9-Photo.jpg", "https://i.ibb.co/nMV83kd2/12-10-Photo.jpg", "https://i.ibb.co/nMTFK6gc/13.jpg"
                 ]
             },
             'hackathon': {
-                title: "Hackathon Hub Stage",
+                title: "Hackathon Hub",
                 images: [
-                    "https://i.ibb.co/ch1QsRRy/1-1-Photo.jpg",
-                    "https://i.ibb.co/C5VnFBPh/1-2-Photo.jpg",
-                    "https://i.ibb.co/ZRdH9ztN/1-3-Photo.jpg",
-                    "https://i.ibb.co/9HWgYgvQ/1-4-Photo.jpg",
-                    "https://i.ibb.co/N6Mn0SX2/1-5-Photo.jpg",
-                    "https://i.ibb.co/mFS05rg2/1-6-Photo.jpg",
-                    "https://i.ibb.co/2Yy9B6tg/1-7-Photo.jpg",
-                    "https://i.ibb.co/k68hyhtr/1-8-Photo.jpg",
-                    "https://i.ibb.co/QF3JSRZY/9-9-Photo.jpg",
-                    "https://i.ibb.co/NdY0scSq/9-10-Photo.jpg"
-                ]
-            },
-            'signage': {
-                title: "Pathway Signage",
-                images: [
-                    "https://i.ibb.co/gZcgWKhy/1-1-Photo.jpg",
-                    "https://i.ibb.co/tMhYkHC9/1-2-Photo.jpg",
-                    "https://i.ibb.co/LhrmShTT/1-3-Photo.jpg",
-                    "https://i.ibb.co/x8D2sHBD/1-4-Photo.jpg",
-                    "https://i.ibb.co/2YS24JxS/1-5-Photo.jpg"
+                    "https://i.ibb.co/ch1QsRRy/1-1-Photo.jpg", "https://i.ibb.co/C5VnFBPh/1-2-Photo.jpg", "https://i.ibb.co/ZRdH9ztN/1-3-Photo.jpg", "https://i.ibb.co/9HWgYgvQ/1-4-Photo.jpg", "https://i.ibb.co/N6Mn0SX2/1-5-Photo.jpg", "https://i.ibb.co/mFS05rg2/1-6-Photo.jpg", "https://i.ibb.co/2Yy9B6tg/1-7-Photo.jpg", "https://i.ibb.co/k68hyhtr/1-8-Photo.jpg", "https://i.ibb.co/QF3JSRZY/9-9-Photo.jpg", "https://i.ibb.co/NdY0scSq/9-10-Photo.jpg",
+                    "https://i.ibb.co/gZcgWKhy/1-1-Photo.jpg", "https://i.ibb.co/tMhYkHC9/1-2-Photo.jpg", "https://i.ibb.co/LhrmShTT/1-3-Photo.jpg", "https://i.ibb.co/x8D2sHBD/1-4-Photo.jpg", "https://i.ibb.co/2YS24JxS/1-5-Photo.jpg"
                 ]
             },
             'suprabha': {
                 title: "Suprabha Stall",
-                images: [
-                    "https://i.ibb.co/JWjFDdZ9/1-1-Photo.jpg",
-                    "https://i.ibb.co/5xc3vpM2/1-2-Photo.jpg",
-                    "https://i.ibb.co/XZfH2nyT/1-5-Photo.jpg",
-                    "https://i.ibb.co/gZ4gBXXw/2-33-Photo.jpg",
-                    "https://i.ibb.co/pjNMTr3q/2-35-Photo.jpg"
-                ]
+                images: ["https://i.ibb.co/JWjFDdZ9/1-1-Photo.jpg", "https://i.ibb.co/5xc3vpM2/1-2-Photo.jpg", "https://i.ibb.co/XZfH2nyT/1-5-Photo.jpg", "https://i.ibb.co/gZ4gBXXw/2-33-Photo.jpg", "https://i.ibb.co/pjNMTr3q/2-35-Photo.jpg"]
             },
             'tcf_stall': {
                 title: "TCF - Twin City Fan Stall",
-                images: [
-                    "https://i.ibb.co/wFm7jZvx/1-1-Photo.jpg",
-                    "https://i.ibb.co/ymPWsY8B/1-2-Photo.jpg",
-                    "https://i.ibb.co/rKXxBsx8/1-3-Photo.jpg",
-                    "https://i.ibb.co/chzwdZ6K/1-4-Photo.jpg",
-                    "https://i.ibb.co/FbVqgwgr/1-5-Photo.jpg",
-                    "https://i.ibb.co/xQ0xFSz/1-6-Photo.jpg"
-                ]
+                images: ["https://i.ibb.co/wFm7jZvx/1-1-Photo.jpg", "https://i.ibb.co/ymPWsY8B/1-2-Photo.jpg", "https://i.ibb.co/rKXxBsx8/1-3-Photo.jpg", "https://i.ibb.co/chzwdZ6K/1-4-Photo.jpg", "https://i.ibb.co/FbVqgwgr/1-5-Photo.jpg", "https://i.ibb.co/xQ0xFSz/1-6-Photo.jpg"]
             },
             'tritorc': {
                 title: "TRITORC Stall",
-                images: [
-                    "https://i.ibb.co/Z6GK9bzw/1-44-Photo.jpg",
-                    "https://i.ibb.co/RkJbDL3J/1-45-Photo.jpg",
-                    "https://i.ibb.co/5x6HvXbG/1-46-Photo.jpg",
-                    "https://i.ibb.co/FL8qNpV7/1-47-Photo.jpg",
-                    "https://i.ibb.co/1pCy2sr/51-53-Photo.jpg",
-                    "https://i.ibb.co/7t8wLTVh/51-57-Photo.jpg",
-                    "https://i.ibb.co/QvKMSrfr/51-60-Photo.jpg"
-                ]
+                images: ["https://i.ibb.co/Z6GK9bzw/1-44-Photo.jpg", "https://i.ibb.co/RkJbDL3J/1-45-Photo.jpg", "https://i.ibb.co/5x6HvXbG/1-46-Photo.jpg", "https://i.ibb.co/FL8qNpV7/1-47-Photo.jpg", "https://i.ibb.co/1pCy2sr/51-53-Photo.jpg", "https://i.ibb.co/7t8wLTVh/51-57-Photo.jpg", "https://i.ibb.co/QvKMSrfr/51-60-Photo.jpg"]
             },
             'jovo': {
                 title: "JOVO Stall",
+                images: ["https://i.ibb.co/yFzVLdfx/1-1-Photo.jpg", "https://i.ibb.co/kTyZ3YC/1-2-Photo.jpg", "https://i.ibb.co/zWby5qP8/1-3-Photo.jpg", "https://i.ibb.co/gFDgYJXv/1-4-Photo.jpg"]
+            },
+            'elt_offsite': {
+                title: "EI&O ELT Offsite",
+                images: ["https://i.ibb.co/gMD8qrd9/Picture1.jpg", "https://i.ibb.co/qYZdk4MG/Picture2.jpg", "https://i.ibb.co/j9P3J6tz/Picture3.jpg", "https://i.ibb.co/JjrFq5GC/Picture4.jpg", "https://i.ibb.co/zWqWL2G8/Picture5.jpg", "https://i.ibb.co/4RmHcCvq/Picture6.jpg"]
+            },
+            'fae_offsite': {
+                title: "FAE Offsite",
+                images: ["https://i.ibb.co/B5mxt3yf/FAE-LOGO-03.png", "https://i.ibb.co/4g2z5m2w/FAE-Photo-Jacket-01.jpg", "https://i.ibb.co/5gVTQ3Yk/FAE-Wrist-Band.jpg", "https://i.ibb.co/ksCbrdDt/Registration-Standee-03.jpg", "https://i.ibb.co/CsM7WChw/Rollup-Standee-01-01.jpg", "https://i.ibb.co/QvSRS1YZ/Welcome-Heavy-Base-Standee.jpg", "https://i.ibb.co/zHF97CdV/1.jpg", "https://i.ibb.co/Ldfqd914/2.jpg", "https://i.ibb.co/4RY81XKn/3.jpg", "https://i.ibb.co/7dJnt5df/4.jpg", "https://i.ibb.co/Z6PGS1hH/Picture7.jpg"]
+            },
+            'ge_aerospace': {
+                title: "GE Aerospace",
+                images: ["https://i.ibb.co/mVDB4RQ5/1-7-Photo.jpg", "https://i.ibb.co/Y772yHRf/1-8-Photo.jpg", "https://i.ibb.co/VcQCDGVK/1-9-Photo.jpg", "https://i.ibb.co/39F0HC8V/1-10-Photo.jpg", "https://i.ibb.co/4nvWhvKM/1-1-Photo.jpg", "https://i.ibb.co/rRX7Rfgc/1-2-Photo.jpg", "https://i.ibb.co/Tx0gkf60/1-3-Photo.jpg", "https://i.ibb.co/Q3BDYJMR/1-5-Photo.jpg", "https://i.ibb.co/DPkt2R2X/4.jpg"]
+            },
+            'ge_vernova': {
+                title: "GE Vernova",
+                images: ["https://i.ibb.co/Nnn6xNsR/1-8-Photo.jpg", "https://i.ibb.co/JwGdy6bj/1-9-Photo.jpg", "https://i.ibb.co/ynrvWCg0/1-10-Photo.jpg", "https://i.ibb.co/Cp62hmSM/1-Exterior-Urban-Setting-2.jpg", "https://i.ibb.co/FkGLznrG/1-Exterior-Urban-Setting-3.jpg", "https://i.ibb.co/SDrhZNBC/1-Exterior-Urban-Setting.jpg", "https://i.ibb.co/zWQ4dnbz/3.jpg", "https://i.ibb.co/JwC5DR39/1-8-Photo.jpg", "https://i.ibb.co/yFm2y7qr/1-9-Photo.jpg", "https://i.ibb.co/MkczJ9JS/1-10-Photo.jpg"]
+            },
+            'skf_automotive': {
+                title: "SKF Automotive Kickoff",
                 images: [
-                    "https://i.ibb.co/yFzVLdfx/1-1-Photo.jpg",
-                    "https://i.ibb.co/kTyZ3YC/1-2-Photo.jpg",
-                    "https://i.ibb.co/zWby5qP8/1-3-Photo.jpg",
-                    "https://i.ibb.co/gFDgYJXv/1-4-Photo.jpg"
+                    "https://i.ibb.co/j99MbhS4/b9ox.jpg", "https://i.ibb.co/TzhmXxp/STAGe-8-Photo.jpg", "https://i.ibb.co/sd14bpwW/STAGe-9-Photo.jpg", "https://i.ibb.co/HQfKRQw/STAGe-10-Photo.jpg", "https://i.ibb.co/Z1hPC7R8/STAGe-Exterior-Crossing.jpg", "https://i.ibb.co/mr318ynn/STAGe-Exterior-Detail-Restaurant.jpg", "https://i.ibb.co/39ZQkKdy/STAGe-Exterior-Detail-Street.jpg", "https://i.ibb.co/bjGdLX07/STAGe-Exterior-Detail.jpg", "https://i.ibb.co/VY6CyW1s/STAGe-Exterior-Main-View.jpg", "https://i.ibb.co/5g8W8s85/STAGe-Exterior-Urban-Setting.jpg", "https://i.ibb.co/xqCYnYyr/STAGe-Orthographic-Elevation.jpg"
                 ]
             },
-            'elt_logo': {
-                title: "EI&O ELT Offsite 2025 Logo",
+            'eco_nest': {
+                title: "Eco Nest Stall",
                 images: [
-                    "https://i.ibb.co/gMD8qrd9/Picture1.jpg"
+                    "https://i.ibb.co/FLqQZT7y/v10-3-Photo.jpg", "https://i.ibb.co/wFNZmzPX/v10-6-Photo.jpg", "https://i.ibb.co/N6LNDKgr/v10-7-Photo.jpg", "https://i.ibb.co/VcCV91YH/v11-1-Photo.jpg", "https://i.ibb.co/s9MDhhpV/v11-2-Photo.jpg", "https://i.ibb.co/fzRXq4ry/v11-5-Photo.jpg", "https://i.ibb.co/whmrD3bP/v11-6-Photo.jpg", "https://i.ibb.co/27rG2b4R/v11-7-Photo.jpg"
                 ]
             },
-            'elt_stage': {
-                title: "EI&O ELT Offsite Stage",
+            'skf_stall': {
+                title: "SKF Stall Render",
                 images: [
-                    "https://i.ibb.co/qYZdk4MG/Picture2.jpg",
-                    "https://i.ibb.co/j9P3J6tz/Picture3.jpg",
-                    "https://i.ibb.co/JjrFq5GC/Picture4.jpg",
-                    "https://i.ibb.co/zWqWL2G8/Picture5.jpg",
-                    "https://i.ibb.co/4RmHcCvq/Picture6.jpg"
-                ]
-            },
-            'fae_logo': {
-                title: "FAE Offsite 2025 Logo",
-                images: [
-                    "https://i.ibb.co/B5mxt3yf/FAE-LOGO-03.png"
-                ]
-            },
-            'fae_jacket': {
-                title: "FAE Offsite Photo-Jacket",
-                images: [
-                    "https://i.ibb.co/4g2z5m2w/FAE-Photo-Jacket-01.jpg"
-                ]
-            },
-            'fae_wrist': {
-                title: "FAE Offsite Wrist Band",
-                images: [
-                    "https://i.ibb.co/5gVTQ3Yk/FAE-Wrist-Band.jpg"
-                ]
-            },
-            'fae_standee': {
-                title: "FAE Offsite Standee",
-                images: [
-                    "https://i.ibb.co/ksCbrdDt/Registration-Standee-03.jpg",
-                    "https://i.ibb.co/CsM7WChw/Rollup-Standee-01-01.jpg",
-                    "https://i.ibb.co/QvSRS1YZ/Welcome-Heavy-Base-Standee.jpg"
-                ]
-            },
-            'fae_stage': {
-                title: "FAE Offsite Stage",
-                images: [
-                    "https://i.ibb.co/zHF97CdV/1.jpg",
-                    "https://i.ibb.co/Ldfqd914/2.jpg",
-                    "https://i.ibb.co/4RY81XKn/3.jpg",
-                    "https://i.ibb.co/7dJnt5df/4.jpg"
-                ]
-            },
-            'fae_arch': {
-                title: "FAE Offsite Arch",
-                images: [
-                    "https://i.ibb.co/Z6PGS1hH/Picture7.jpg"
-                ]
-            },
-            'ge_kiosk': {
-                title: "GE Aerospace (Photo Kiosk)",
-                images: [
-                    "https://i.ibb.co/mVDB4RQ5/1-7-Photo.jpg",
-                    "https://i.ibb.co/Y772yHRf/1-8-Photo.jpg",
-                    "https://i.ibb.co/VcQCDGVK/1-9-Photo.jpg",
-                    "https://i.ibb.co/39F0HC8V/1-10-Photo.jpg"
-                ]
-            },
-            'ge_booth': {
-                title: "GE Aerospace (PhotoBooth)",
-                images: [
-                    "https://i.ibb.co/4nvWhvKM/1-1-Photo.jpg",
-                    "https://i.ibb.co/rRX7Rfgc/1-2-Photo.jpg",
-                    "https://i.ibb.co/Tx0gkf60/1-3-Photo.jpg",
-                    "https://i.ibb.co/Q3BDYJMR/1-5-Photo.jpg",
-                    "https://i.ibb.co/DPkt2R2X/4.jpg"
-                ]
-            },
-            'vernova_booth': {
-                title: "GE Vernova (PhotoBooth)",
-                images: [
-                    "https://i.ibb.co/JwC5DR39/1-8-Photo.jpg",
-                    "https://i.ibb.co/yFm2y7qr/1-9-Photo.jpg",
-                    "https://i.ibb.co/MkczJ9JS/1-10-Photo.jpg"
+                    "https://i.ibb.co/8n4n4DRb/53-and-54-53-Photo.jpg", "https://i.ibb.co/DPP5ztg4/53-and-54-54-Photo.jpg", "https://i.ibb.co/1t8n7TfV/full-51-Photo.jpg", "https://i.ibb.co/4RgRCY6W/full-52-Photo.jpg", "https://i.ibb.co/ZpjQ4mLr/full-53-Photo.jpg", "https://i.ibb.co/9kJ2k2qM/full-54-Photo.jpg", "https://i.ibb.co/cSTWPgCw/full-55-Photo-2.jpg", "https://i.ibb.co/nMhjxZJk/full-55-Photo.jpg", "https://i.ibb.co/nMcRLNFC/out-line-41-Photo.jpg", "https://i.ibb.co/MrD5ZcF/out-line-42-Photo.jpg"
                 ]
             }
         };
@@ -784,7 +652,6 @@
             card.className = 'project-card';
             card.onclick = () => openVideo(vid.id);
             
-            // Uses maxresdefault or hqdefault as fallback for high quality thumbnail
             card.innerHTML = `
                 <div class="card-visual">
                     <img src="https://img.youtube.com/vi/${vid.id}/hqdefault.jpg" alt="${vid.title}" loading="lazy">
@@ -962,6 +829,5 @@
 
 </body>
 </html>
-
 
 
