@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes">
+    <meta name="description" content="Shreyas Raj - 2D and 3D Artist Portfolio">
+    <title>Shreyas Raj | 2D and 3D Artist Portfolio</title>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- CORE SETTINGS --- */
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&family=Playfair+Display:wght@700&display=swap');
+
+        :root {
+            --primary: #00f2ff;
+            --secondary: #bd00ff;
+            --bg-dark: #050510;
+            --card-bg: #121225;
+            --text-main: #ffffff;
+            --text-muted: #b0b0d0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- BACKGROUND --- */
+        .bg-fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 10% 20%, rgba(189, 0, 255, 0.1), transparent 40%),
+                        radial-gradient(circle at 90% 80%, rgba(0, 242, 255, 0.1), transparent 40%);
+            background-color: var(--bg-dark);
+        }
+
+        /* --- HEADER --- */
+        header {
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            background: linear-gradient(to right, #fff, #a0a0c0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: var(--primary);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* --- SECTIONS --- */
+        section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #fff;
+            border-bottom: 2px solid var(--primary);
+            display: inline-block;
+            padding-bottom: 10px;
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* --- ABOUT --- */
+        .about-box {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 1.1rem;
+            color: #d1d5db;
+        }
+
+        /* --- GRID LAYOUTS --- */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        /* --- PROJECT CARDS --- */
+        .project-card {
+            display: flex;
+            flex-direction: column;
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+            position: relative;
+            cursor: pointer;
+            z-index: 1;
+        }
+
+        .card-visual {
+            height: 220px;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-visual img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.9;
+            transition: transform 0.5s ease, opacity 0.3s;
+        }
+        
+        .visual-icon {
+            position: absolute;
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.9);
+            z-index: 2;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.8);
+            pointer-events: none;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.3s;
+        }
+
+        @media (hover: hover) {
+            .project-card:hover {
+                transform: translateY(-5px);
+                border-color: var(--primary);
+                box-shadow: 0 10px 25px rgba(0, 242, 255, 0.2);
+            }
+            .project-card:hover .card-visual img {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+            .project-card:hover .visual-icon {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @media (hover: none) {
+            .visual-icon {
+                opacity: 0.7;
+                transform: scale(1);
+            }
+        }
+
+        .card-info {
+            padding: 20px;
+            color: #fff;
+            text-align: center;
+            z-index: 2;
+            position: relative;
+            background: linear-gradient(to top, rgba(18,18,37,1), rgba(18,18,37,0.9));
+        }
+
+        .card-info h3 {
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .click-hint {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- SKILLS --- */
+        .skills-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .skill-pill {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 20px;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        /* --- CONTACT --- */
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .contact-btn {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 1.2rem;
+            border: 1px solid var(--primary);
+            padding: 10px 30px;
+            border-radius: 5px;
+            transition: background 0.3s, color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-btn:hover {
+            background: var(--primary);
+            color: #000;
+        }
+
+        /* --- MODAL SYSTEM (FULL SCREEN) --- */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Close Button */
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            font-size: 2.5rem;
+            color: white;
+            cursor: pointer;
+            z-index: 10005;
+            text-shadow: 0 0 10px rgba(0,0,0,0.8);
+        }
+
+        /* Gallery Container */
+        .gallery-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .gallery-img {
+            max-width: 100vw;
+            max-height: 100vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            display: block;
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.3);
+            color: rgba(255,255,255,0.9);
+            border: none;
+            padding: 20px;
+            font-size: 2.5rem;
+            cursor: pointer;
+            z-index: 10002;
+            border-radius: 50%;
+            margin: 0 10px;
+        }
+        .prev { left: 0; }
+        .next { right: 0; }
+
+        .slide-instruction {
+            position: absolute;
+            bottom: 80px;
+            width: 100%;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,1);
+            pointer-events: none;
+            z-index: 10003;
+            animation: pulse 3s infinite;
+        }
+
+        @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+
+        .gallery-dots {
+            position: absolute;
+            bottom: 55px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 0 20px;
+            gap: 8px;
+            z-index: 10003;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background-color: var(--primary);
+            transform: scale(1.3);
+        }
+
+        .image-caption {
+            position: absolute;
+            bottom: 15px;
+            color: #fff;
+            font-size: 0.9rem;
+            text-align: center;
+            background: transparent;
+            text-shadow: 0 2px 4px rgba(0,0,0,1);
+            padding: 5px 20px;
+            pointer-events: none;
+            z-index: 10003;
+        }
+
+        .video-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+        }
+        .video-container iframe { width: 100%; max-width: 1200px; height: auto; aspect-ratio: 16/9; border: none; }
+
+        .loader {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            position: absolute;
+            z-index: 9999;
+            display: none;
+        }
+        
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .grid-container { grid-template-columns: 1fr; }
+            .nav-btn { padding: 15px; font-size: 2rem; }
+            .prev { left: 5px; }
+            .next { right: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-fixed"></div>
+
+    <header>
+        <h1>Shreyas Raj</h1>
+        <p class="subtitle">2D and 3D Artist</p>
+    </header>
+
+    <section>
+        <h2>About Me</h2>
+        <div class="about-box">
+            <p>
+                Let Me Bring Your Ideas to Reality! <br><br>
+                I’m Shreyas Raj, a passionate 2D and 3D artist. I specialize in Graphic Designing and 3D Modeling to bring creative ideas to life. My focus is on delivering high-quality visual content.
+                <br><br>
+                <strong>Expertise:</strong> Graphic Designing, 3D Modeling, and Event and Stall Designing.
+            </p>
+        </div>
+    </section>
+
+    <!-- IMAGE GALLERIES SECTION -->
+    <section>
+        <h2>Image Galleries</h2>
+        <p style="text-align:center; color:var(--text-muted); margin-bottom:20px;">Tap to open gallery (Swipe left/right)</p>
+        
+        <div class="grid-container" id="galleryGrid">
+            <!-- Populated by JavaScript -->
+        </div>
+    </section>
+
+    <!-- VIDEO PROJECTS SECTION -->
+    <section>
+        <h2>3D Walkthroughs & Videos</h2>
+        <p style="text-align:center; color:var(--text-muted); margin-bottom:20px;">Tap to play video</p>
+        
+        <div class="grid-container" id="videoGrid">
+            <!-- Populated by JavaScript -->
+        </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section>
+        <h2>Skills</h2>
+        <div class="skills-wrapper">
+            <div class="skill-pill">Photoshop</div>
+            <div class="skill-pill">Illustrator</div>
+            <div class="skill-pill">After Effects</div>
+            <div class="skill-pill">Premiere Pro</div>
+            <div class="skill-pill">Maya</div>
+            <div class="skill-pill">Lumion</div>
+            <div class="skill-pill">3D Modeling</div>
+            <div class="skill-pill">Graphic Design</div>
+            <div class="skill-pill">Texturing</div>
+            <div class="skill-pill">Lighting</div>
+            <div class="skill-pill">Rendering</div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section>
+        <h2>Contact</h2>
+        <div class="contact-links">
+            <a href="mailto:shreyasrajm1998@gmail.com" class="contact-btn">
+                <i class="fas fa-envelope"></i> shreyasrajm1998@gmail.com
+            </a>
+            <a href="tel:+919845605724" class="contact-btn">
+                <i class="fas fa-phone"></i> +91 9845605724
+            </a>
+            <a href="https://www.linkedin.com/in/shreyas-raj-m-879b5a364?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" class="contact-btn">
+                <i class="fab fa-linkedin"></i> Connect on LinkedIn
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 Shreyas Raj. All rights reserved.</p>
+    </footer>
+
+    <!-- MODAL OVERLAY -->
+    <div id="mediaModal" class="modal-overlay" onclick="closeModal(event)">
+        <div class="close-btn" onclick="closeModalForce()">&times;</div>
+        
+        <!-- Gallery Container -->
+        <div id="galleryContainer" class="gallery-container">
+            <div class="loader" id="loader"></div>
+            <button class="nav-btn prev" onclick="changeSlide(-1)">&#10094;</button>
+            <img id="modalImage" class="gallery-img" src="" alt="" onload="hideLoader()">
+            <button class="nav-btn next" onclick="changeSlide(1)">&#10095;</button>
+            
+            <div id="slideInstruction" class="slide-instruction">Swipe Left or Right to View Images</div>
+            <div id="galleryDots" class="gallery-dots"></div>
+        </div>
+        <div id="imageCaption" class="image-caption"></div>
+
+        <!-- Video Container -->
+        <div id="videoContainer" class="video-container" style="display:none;">
+            <div id="videoPlayer"></div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // --- DATA: IMAGE URLS ---
+        const galleryData = {
+            'adani_stall': {
+                title: "Adani Marathon Flipkart Minutes Stall",
+                images: [
+                    "https://i.ibb.co/ymdY7shh/1-Exterior-Detail.jpg",
+                    "https://i.ibb.co/Y4zLLNQg/1-Exterior-Narrow.jpg",
+                    "https://i.ibb.co/JRwdYTMm/1-Exterior-Wide.jpg",
+                    "https://i.ibb.co/tTS1TZJz/2-9-Photo.jpg",
+                    "https://i.ibb.co/s9K3LfJs/2-Axonometric-Projection-at-45.jpg",
+                    "https://i.ibb.co/3qhHwqs/2-Photo-Match-Birds-Eye.jpg",
+                    "https://i.ibb.co/0RcT26Ks/3.jpg",
+                    "https://i.ibb.co/Pv7f4TZZ/4.jpg"
+                ]
+            },
+            'bm_sulthania': {
+                title: "BM Sulthania & Silver Upahar Stall",
+                images: [
+                    "https://i.ibb.co/ZRZwBjrt/1-1-Photo.jpg",
+                    "https://i.ibb.co/C3fkQt2z/1-2-Photo.jpg",
+                    "https://i.ibb.co/KjMbjckm/1-4-Photo.jpg",
+                    "https://i.ibb.co/HL1h3D7Y/1-5-Photo.jpg",
+                    "https://i.ibb.co/MDsdQ3pv/1-6-Photo.jpg",
+                    "https://i.ibb.co/C3yrF7bK/1-7-Photo.jpg",
+                    "https://i.ibb.co/vCpPDHPT/1-8-Photo.jpg",
+                    "https://i.ibb.co/hJs7VgxC/1-9-Photo.jpg",
+                    "https://i.ibb.co/0pJNcWdL/1-10-Photo.jpg",
+                    "https://i.ibb.co/SXzprB8j/11.jpg"
+                ]
+            },
+            'chivas_display': {
+                title: "Generic Display Stand (Chivas Regal)",
+                images: [
+                    "https://i.ibb.co/k2wjmwDY/1-55-Photo.jpg",
+                    "https://i.ibb.co/fdYKyL5R/1-56-Photo.jpg",
+                    "https://i.ibb.co/pBTpm3nj/1-57-Photo.jpg",
+                    "https://i.ibb.co/PZZ97qGv/1-17-Photo.jpg",
+                    "https://i.ibb.co/c9kd47m/1-18-Photo.jpg",
+                    "https://i.ibb.co/5hB76WM9/1-19-Photo.jpg",
+                    "https://i.ibb.co/7tkPS0FC/1-20-Photo.jpg"
+                ]
+            },
+            'monkey_bar': {
+                title: "Bar Counter (Monkey 47)",
+                images: [
+                    "https://i.ibb.co/R4HgZST7/30-22-Photo.jpg",
+                    "https://i.ibb.co/C5tW4tTj/30-26-Photo.jpg",
+                    "https://i.ibb.co/BVMs9Nkt/30-27-Photo.jpg",
+                    "https://i.ibb.co/m5PTSfBM/30-28-Photo.jpg",
+                    "https://i.ibb.co/fzKwJQkx/30-Existing-Image.jpg"
+                ]
+            },
+            'monkey_bottle': {
+                title: "Generic Bottle Display Stand (Monkey 47)",
+                images: [
+                    "https://i.ibb.co/SDHhD7nt/20-13-Photo.jpg",
+                    "https://i.ibb.co/VcPrDprh/20-14-Photo.jpg",
+                    "https://i.ibb.co/Q3n7Qcw4/20-15-Photo.jpg",
+                    "https://i.ibb.co/60Bx0S7k/20-16-Photo.jpg",
+                    "https://i.ibb.co/pvj9184m/20-17-Photo.jpg",
+                    "https://i.ibb.co/YFZjJBKH/20-18-Photo.jpg",
+                    "https://i.ibb.co/GvJJF1qh/20-19-Photo.jpg",
+                    "https://i.ibb.co/67ttQRxb/1-9-Photo.jpg",
+                    "https://i.ibb.co/p6Z0jfky/1-10-Photo.jpg",
+                    "https://i.ibb.co/FL0jLTPV/2-11-Photo.jpg",
+                    "https://i.ibb.co/Kj52PZdn/2-12-Photo.jpg",
+                    "https://i.ibb.co/LznSDKjQ/2-13-Photo.jpg",
+                    "https://i.ibb.co/JWvPGVrL/2-14-Photo.jpg",
+                    "https://i.ibb.co/Swqm6QL1/2-15-Photo.jpg"
+                ]
+            },
+            'monkey_stand': {
+                title: "Stand Alone Unit (Monkey 47)",
+                images: [
+                    "https://i.ibb.co/gbLGQgNV/1-8-Photo.jpg",
+                    "https://i.ibb.co/TqRP4bPQ/1-9-Photo.jpg",
+                    "https://i.ibb.co/7drtSTKz/1-10-Photo.jpg",
+                    "https://i.ibb.co/dw97HhN3/11.jpg",
+                    "https://i.ibb.co/pBWT4qhy/12-8-Photo.jpg",
+                    "https://i.ibb.co/b5qTsFrf/12-9-Photo.jpg",
+                    "https://i.ibb.co/nMV83kd2/12-10-Photo.jpg",
+                    "https://i.ibb.co/nMTFK6gc/13.jpg"
+                ]
+            },
+            'hackathon': {
+                title: "Hackathon Hub Stage",
+                images: [
+                    "https://i.ibb.co/ch1QsRRy/1-1-Photo.jpg",
+                    "https://i.ibb.co/C5VnFBPh/1-2-Photo.jpg",
+                    "https://i.ibb.co/ZRdH9ztN/1-3-Photo.jpg",
+                    "https://i.ibb.co/9HWgYgvQ/1-4-Photo.jpg",
+                    "https://i.ibb.co/N6Mn0SX2/1-5-Photo.jpg",
+                    "https://i.ibb.co/mFS05rg2/1-6-Photo.jpg",
+                    "https://i.ibb.co/2Yy9B6tg/1-7-Photo.jpg",
+                    "https://i.ibb.co/k68hyhtr/1-8-Photo.jpg",
+                    "https://i.ibb.co/QF3JSRZY/9-9-Photo.jpg",
+                    "https://i.ibb.co/NdY0scSq/9-10-Photo.jpg"
+                ]
+            },
+            'signage': {
+                title: "Pathway Signage",
+                images: [
+                    "https://i.ibb.co/gZcgWKhy/1-1-Photo.jpg",
+                    "https://i.ibb.co/tMhYkHC9/1-2-Photo.jpg",
+                    "https://i.ibb.co/LhrmShTT/1-3-Photo.jpg",
+                    "https://i.ibb.co/x8D2sHBD/1-4-Photo.jpg",
+                    "https://i.ibb.co/2YS24JxS/1-5-Photo.jpg"
+                ]
+            },
+            'suprabha': {
+                title: "Suprabha Stall",
+                images: [
+                    "https://i.ibb.co/JWjFDdZ9/1-1-Photo.jpg",
+                    "https://i.ibb.co/5xc3vpM2/1-2-Photo.jpg",
+                    "https://i.ibb.co/XZfH2nyT/1-5-Photo.jpg",
+                    "https://i.ibb.co/gZ4gBXXw/2-33-Photo.jpg",
+                    "https://i.ibb.co/pjNMTr3q/2-35-Photo.jpg"
+                ]
+            },
+            'tcf_stall': {
+                title: "TCF - Twin City Fan Stall",
+                images: [
+                    "https://i.ibb.co/wFm7jZvx/1-1-Photo.jpg",
+                    "https://i.ibb.co/ymPWsY8B/1-2-Photo.jpg",
+                    "https://i.ibb.co/rKXxBsx8/1-3-Photo.jpg",
+                    "https://i.ibb.co/chzwdZ6K/1-4-Photo.jpg",
+                    "https://i.ibb.co/FbVqgwgr/1-5-Photo.jpg",
+                    "https://i.ibb.co/xQ0xFSz/1-6-Photo.jpg"
+                ]
+            },
+            'tritorc': {
+                title: "TRITORC Stall",
+                images: [
+                    "https://i.ibb.co/Z6GK9bzw/1-44-Photo.jpg",
+                    "https://i.ibb.co/RkJbDL3J/1-45-Photo.jpg",
+                    "https://i.ibb.co/5x6HvXbG/1-46-Photo.jpg",
+                    "https://i.ibb.co/FL8qNpV7/1-47-Photo.jpg",
+                    "https://i.ibb.co/1pCy2sr/51-53-Photo.jpg",
+                    "https://i.ibb.co/7t8wLTVh/51-57-Photo.jpg",
+                    "https://i.ibb.co/QvKMSrfr/51-60-Photo.jpg"
+                ]
+            },
+            'jovo': {
+                title: "JOVO Stall",
+                images: [
+                    "https://i.ibb.co/yFzVLdfx/1-1-Photo.jpg",
+                    "https://i.ibb.co/kTyZ3YC/1-2-Photo.jpg",
+                    "https://i.ibb.co/zWby5qP8/1-3-Photo.jpg",
+                    "https://i.ibb.co/gFDgYJXv/1-4-Photo.jpg"
+                ]
+            },
+            'elt_logo': {
+                title: "EI&O ELT Offsite 2025 Logo",
+                images: [
+                    "https://i.ibb.co/gMD8qrd9/Picture1.jpg"
+                ]
+            },
+            'elt_stage': {
+                title: "EI&O ELT Offsite Stage",
+                images: [
+                    "https://i.ibb.co/qYZdk4MG/Picture2.jpg",
+                    "https://i.ibb.co/j9P3J6tz/Picture3.jpg",
+                    "https://i.ibb.co/JjrFq5GC/Picture4.jpg",
+                    "https://i.ibb.co/zWqWL2G8/Picture5.jpg",
+                    "https://i.ibb.co/4RmHcCvq/Picture6.jpg"
+                ]
+            },
+            'fae_logo': {
+                title: "FAE Offsite 2025 Logo",
+                images: [
+                    "https://i.ibb.co/B5mxt3yf/FAE-LOGO-03.png"
+                ]
+            },
+            'fae_jacket': {
+                title: "FAE Offsite Photo-Jacket",
+                images: [
+                    "https://i.ibb.co/4g2z5m2w/FAE-Photo-Jacket-01.jpg"
+                ]
+            },
+            'fae_wrist': {
+                title: "FAE Offsite Wrist Band",
+                images: [
+                    "https://i.ibb.co/5gVTQ3Yk/FAE-Wrist-Band.jpg"
+                ]
+            },
+            'fae_standee': {
+                title: "FAE Offsite Standee",
+                images: [
+                    "https://i.ibb.co/ksCbrdDt/Registration-Standee-03.jpg",
+                    "https://i.ibb.co/CsM7WChw/Rollup-Standee-01-01.jpg",
+                    "https://i.ibb.co/QvSRS1YZ/Welcome-Heavy-Base-Standee.jpg"
+                ]
+            },
+            'fae_stage': {
+                title: "FAE Offsite Stage",
+                images: [
+                    "https://i.ibb.co/zHF97CdV/1.jpg",
+                    "https://i.ibb.co/Ldfqd914/2.jpg",
+                    "https://i.ibb.co/4RY81XKn/3.jpg",
+                    "https://i.ibb.co/7dJnt5df/4.jpg"
+                ]
+            },
+            'fae_arch': {
+                title: "FAE Offsite Arch",
+                images: [
+                    "https://i.ibb.co/Z6PGS1hH/Picture7.jpg"
+                ]
+            },
+            'ge_kiosk': {
+                title: "GE Aerospace (Photo Kiosk)",
+                images: [
+                    "https://i.ibb.co/mVDB4RQ5/1-7-Photo.jpg",
+                    "https://i.ibb.co/Y772yHRf/1-8-Photo.jpg",
+                    "https://i.ibb.co/VcQCDGVK/1-9-Photo.jpg",
+                    "https://i.ibb.co/39F0HC8V/1-10-Photo.jpg"
+                ]
+            },
+            'ge_booth': {
+                title: "GE Aerospace (PhotoBooth)",
+                images: [
+                    "https://i.ibb.co/4nvWhvKM/1-1-Photo.jpg",
+                    "https://i.ibb.co/rRX7Rfgc/1-2-Photo.jpg",
+                    "https://i.ibb.co/Tx0gkf60/1-3-Photo.jpg",
+                    "https://i.ibb.co/Q3BDYJMR/1-5-Photo.jpg",
+                    "https://i.ibb.co/DPkt2R2X/4.jpg"
+                ]
+            },
+            'vernova_booth': {
+                title: "GE Vernova (PhotoBooth)",
+                images: [
+                    "https://i.ibb.co/JwC5DR39/1-8-Photo.jpg",
+                    "https://i.ibb.co/yFm2y7qr/1-9-Photo.jpg",
+                    "https://i.ibb.co/MkczJ9JS/1-10-Photo.jpg"
+                ]
+            }
+        };
+
+        // --- DATA: VIDEO URLS ---
+        const videoData = [
+            { id: "N4Ddt1SzVY4", title: "LAPP INDIA WALKTHROUGH" },
+            { id: "QfroPd8DJF4", title: "GE VERNOVA URJA 2025" },
+            { id: "7j_-Zpaliv8", title: "LEADERSHIP MEET & KICKOFF 2026" },
+            { id: "tTYDtKJSMXg", title: "URJA Walkthrough" },
+            { id: "N2hoiM9ihfU", title: "SKF Automotive Kickoff" },
+            { id: "S89WRCuf5aM", title: "Fidelity FAE Offsite 2025" },
+            { id: "H59_5FacYNU", title: "WABTEC AWARDS 3D WALKTHROUGH" }
+        ];
+
+        // --- INIT GALLERIES ---
+        const galleryGrid = document.getElementById('galleryGrid');
+        
+        Object.keys(galleryData).forEach(key => {
+            const data = galleryData[key];
+            const card = document.createElement('div');
+            card.className = 'project-card';
+            card.onclick = () => openGallery(key);
+            
+            card.innerHTML = `
+                <div class="card-visual">
+                    <img src="${data.images[0]}" alt="${data.title}" loading="lazy">
+                    <i class="fas fa-images visual-icon"></i>
+                </div>
+                <div class="card-info">
+                    <h3>${data.title}</h3>
+                    <div class="click-hint">View Gallery</div>
+                </div>
+            `;
+            galleryGrid.appendChild(card);
+        });
+
+        // --- INIT VIDEOS ---
+        const videoGrid = document.getElementById('videoGrid');
+        
+        videoData.forEach(vid => {
+            const card = document.createElement('div');
+            card.className = 'project-card';
+            card.onclick = () => openVideo(vid.id);
+            
+            // Uses maxresdefault or hqdefault as fallback for high quality thumbnail
+            card.innerHTML = `
+                <div class="card-visual">
+                    <img src="https://img.youtube.com/vi/${vid.id}/hqdefault.jpg" alt="${vid.title}" loading="lazy">
+                    <i class="fas fa-play-circle visual-icon"></i>
+                </div>
+                <div class="card-info">
+                    <h3>${vid.title}</h3>
+                    <div class="click-hint">Play Video</div>
+                </div>
+            `;
+            videoGrid.appendChild(card);
+        });
+
+        // --- STATE VARIABLES ---
+        let currentGalleryId = '';
+        let currentImageIndex = 0;
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        // --- FUNCTIONS ---
+
+        // Open Gallery Modal
+        function openGallery(id) {
+            currentGalleryId = id;
+            currentImageIndex = 0;
+            
+            document.getElementById('mediaModal').style.display = 'flex';
+            document.getElementById('galleryContainer').style.display = 'flex';
+            document.getElementById('videoContainer').style.display = 'none';
+            document.getElementById('imageCaption').style.display = 'block';
+            
+            // If single image, hide next/prev buttons and instructions
+            const isSingle = galleryData[id].images.length <= 1;
+            const prevBtn = document.querySelector('.nav-btn.prev');
+            const nextBtn = document.querySelector('.nav-btn.next');
+            const instruction = document.getElementById('slideInstruction');
+            
+            if(prevBtn) prevBtn.style.display = isSingle ? 'none' : 'block';
+            if(nextBtn) nextBtn.style.display = isSingle ? 'none' : 'block';
+            if(instruction) instruction.style.display = isSingle ? 'none' : 'block';
+
+            generateDots(galleryData[id].images.length);
+            updateImage();
+            
+            // Preload next images
+            setTimeout(() => preloadGalleryImages(id), 500);
+        }
+        
+        function preloadGalleryImages(id) {
+            const images = galleryData[id].images;
+            for(let i=0; i<Math.min(images.length, 3); i++) {
+                const img = new Image();
+                img.src = images[i];
+            }
+        }
+
+        // Generate Dots
+        function generateDots(length) {
+            const dotsContainer = document.getElementById('galleryDots');
+            dotsContainer.innerHTML = '';
+            if (length <= 1) return; // No dots for single image
+            
+            for (let i = 0; i < length; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'dot';
+                dot.onclick = (e) => {
+                    e.stopPropagation();
+                    jumpToSlide(i);
+                };
+                dotsContainer.appendChild(dot);
+            }
+        }
+
+        function jumpToSlide(index) {
+            currentImageIndex = index;
+            updateImage();
+        }
+
+        // Loader visibility
+        function showLoader() { document.getElementById('loader').style.display = 'block'; }
+        function hideLoader() { document.getElementById('loader').style.display = 'none'; }
+
+        // Update Image & Caption & Dots
+        function updateImage() {
+            const images = galleryData[currentGalleryId].images;
+            const imgElement = document.getElementById('modalImage');
+            const captionElement = document.getElementById('imageCaption');
+            
+            showLoader();
+            imgElement.style.opacity = '0.3';
+            
+            // Create temp image to preload
+            const tempImg = new Image();
+            tempImg.onload = function() {
+                imgElement.src = this.src;
+                hideLoader();
+                imgElement.style.opacity = '1';
+            };
+            tempImg.src = images[currentImageIndex];
+
+            // Update caption text
+            const title = galleryData[currentGalleryId].title;
+            if (images.length > 1) {
+                captionElement.innerText = `${title} (${currentImageIndex + 1}/${images.length})`;
+            } else {
+                captionElement.innerText = title;
+            }
+
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach((dot, index) => {
+                if (index === currentImageIndex) dot.classList.add('active');
+                else dot.classList.remove('active');
+            });
+        }
+
+        // Change Slide
+        function changeSlide(direction) {
+            const images = galleryData[currentGalleryId].images;
+            if (images.length <= 1) return;
+
+            currentImageIndex += direction;
+
+            if (currentImageIndex < 0) {
+                currentImageIndex = images.length - 1;
+            } else if (currentImageIndex >= images.length) {
+                currentImageIndex = 0;
+            }
+            updateImage();
+        }
+
+        // Open Video Modal
+        function openVideo(videoId) {
+            document.getElementById('mediaModal').style.display = 'flex';
+            document.getElementById('galleryContainer').style.display = 'none';
+            document.getElementById('imageCaption').style.display = 'none';
+            document.getElementById('videoContainer').style.display = 'flex';
+
+            document.getElementById('videoPlayer').innerHTML = 
+                `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+        }
+
+        // Close Modal
+        function closeModal(event) {
+            if (event.target.id === 'mediaModal' || event.target.classList.contains('gallery-container')) {
+                closeModalForce();
+            }
+        }
+
+        function closeModalForce() {
+            document.getElementById('mediaModal').style.display = 'none';
+            document.getElementById('videoPlayer').innerHTML = ''; // Stop video
+        }
+
+        // --- TOUCH / SWIPE LOGIC ---
+        const galleryContainer = document.getElementById('galleryContainer');
+
+        galleryContainer.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        galleryContainer.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) {
+                changeSlide(1); // Swipe Left -> Next
+            }
+            if (touchEndX > touchStartX + 50) {
+                changeSlide(-1); // Swipe Right -> Prev
+            }
+        }
+    </script>
+
+</body>
+</html>
+
+
+
